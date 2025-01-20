@@ -1,0 +1,20 @@
+1. Resultados Positivos
+Status Code 200 -> As requisições foram bem-sucedidas.
+Nenhuma falha de requisição -> http_req_failed está em 0.
+
+2. Problemas Identificados
+Tempo de resposta não aceitável
+
+O threshold definido para http_req_duration foi ultrapassado.
+O tempo médio (avg) foi 225.98ms, mas houve picos de até 21.28s.
+
+Percentis elevados:
+p(90) = 451.81ms
+p(95) = 786ms
+O erro ERRO[030] thresholds on metrics 'http_req_duration' have been crossed indica que o tempo máximo esperado foi excedido.
+
+3. Possíveis Soluções
+Otimizar o backend: Verificar se há gargalos no servidor ou no banco de dados.
+Ajustar a infraestrutura: Pode ser necessário escalar a aplicação para suportar mais usuários simultâneos.
+Revisar a configuração do teste: Se os thresholds estiverem muito rígidos, considere ajustá-los conforme o SLA esperado.
+Analisar logs da aplicação: Verifique logs de erro e métricas do servidor para entender os tempos de resposta elevados.
