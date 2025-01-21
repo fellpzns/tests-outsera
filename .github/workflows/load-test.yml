@@ -1,0 +1,32 @@
+name: Load Testing K6
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'load-test-k6/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'load-test-k6/**'
+
+jobs:
+  k6-load-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: load-test-k6
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Instalar K6
+        run: |
+          sudo apt update
+          sudo apt install -y k6
+
+      - name: Executar testes de carga
+        run: k6 run load-test.js
