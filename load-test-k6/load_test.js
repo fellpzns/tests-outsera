@@ -14,7 +14,7 @@ export const options = {
 };
 
 export default function () {
-  const res = http.get('https://jsonplaceholder.typicode.com/posts'); // API pública de teste
+  const res = http.get('https://jsonplaceholder.typicode.com/posts');
 
   check(res, {
     'status code is 200': (r) => r.status === 200,
