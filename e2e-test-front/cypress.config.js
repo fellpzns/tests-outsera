@@ -4,10 +4,10 @@ const { addCucumberPreprocessorPlugin } = require('@badeball/cypress-cucumber-pr
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
-      addCucumberPreprocessorPlugin(on, config); // Configuração correta
+      addCucumberPreprocessorPlugin(on, config);
       return config;
     },
-    specPattern: '**/*.feature', // Defina o padrão de arquivos .feature
+    specPattern: '**/*.feature',
     video: false,
   },
 });
