@@ -25,8 +25,13 @@ jobs:
 
       - name: Instalar K6
         run: |
+          curl -fsSL https://dl.k6.io/key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/k6-archive-keyring.gpg
+          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
           sudo apt update
           sudo apt install -y k6
+
+      - name: Verificar versão do K6
+        run: k6 version
 
       - name: Executar testes de carga
         run: k6 run load-test.js
