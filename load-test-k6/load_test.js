@@ -21,5 +21,5 @@ export default function () {
     'response time is acceptable': (r) => r.timings.duration < 500,
   });
 
-  sleep(1); // Simula comportamento humano com pausa entre requisições
+  sleep(1);
 }
