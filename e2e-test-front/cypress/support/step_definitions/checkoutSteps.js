@@ -1,22 +1,23 @@
-import { Given, When, Then } from '@cypress/cucumber-preprocessor/steps';
-import CheckoutPage from '../pages/checkoutPage';
+//<reference types = "Cypress" />
 
-const checkoutPage = new CheckoutPage();
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor'
 
-Given('que estou na página de checkout', () => {
-  checkoutPage.visit();
-});
+import checkoutPage from '../../pages/checkoutPage'
 
-When('adiciono um produto ao carrinho', () => {
-  checkoutPage.addProductToCart();
-});
+When('o usuário adiciona um produto ao carrinho', () => {
+  checkoutPage.addItemToCart()
+})
 
-When('preencho os dados de pagamento', (dataTable) => {
-  const { cardNumber, expiryDate, cvv } = dataTable.rowsHash();
-  checkoutPage.fillPaymentDetails(cardNumber, expiryDate, cvv);
-});
+When('navega até o carrinho', () => {
+  checkoutPage.navigateToCart()
+})
+
+When('preenche as informações de pagamento', () => {
+  checkoutPage.fillPaymentDetails()
+})
 
 Then('a compra é finalizada com sucesso', () => {
-  checkoutPage.completePurchase();
-  checkoutPage.verifyPurchaseSuccess();
-});
+  checkoutPage.completeCheckout()
+  cy.url().should('include', '/checkout-complete.html')
+  cy.contains('Thank you for your order').should('be.visible')
+})

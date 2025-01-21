@@ -1,17 +1,19 @@
-import { Given, When, Then } from '@cypress/cucumber-preprocessor/steps';
-import LoginPage from '../pages/loginPage';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor'
+import loginPage from '../../pages/loginPage'
 
-const loginPage = new LoginPage();
+import url from '../../fixtures/url.json'
 
-Given('que estou na página de login', () => {
-  loginPage.visit();
-});
+Given("que o usuário acessa a página de login", () => {
+  cy.visit(url.baseUrl);
+})
 
-When('faço login com {string} e {string}', (username, password) => {
-  loginPage.fillLoginForm(username, password);
-  loginPage.submitLogin();
-});
+When('o usuário faz login com {string} e {string}', (username, password) => {
+  loginPage.fillUsername(username)
+  loginPage.fillPassword(password)
+  loginPage.submit()
+})
 
-Then('sou redirecionado para a página de checkout', () => {
-  loginPage.verifyLoginSuccess();
-});
+Then('o usuário deve ser redirecionado para a página de vendas', () => {
+  cy.url().should('include', '/inventory.html')
+  cy.get('.inventory_list').should('be.visible')
+})
